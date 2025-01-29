@@ -2,7 +2,7 @@ spec:
   name: preved-to-virtual-catalog
   services:
     - environment_slug: php
-      build_command: "composer install --no-dev --optimize-autoloader",
+      build_command: "composer install --no-dev --optimize-autoloader"
       git:
         branch: main
         repo_clone_url: https://github.com/1biot/virtual-catalog.git
