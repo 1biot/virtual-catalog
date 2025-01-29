@@ -1,0 +1,30 @@
+parameters:
+    catalogName: %env.CATALOG_NAME%
+    productsXmlUrl: %env.CATALOG_PRODUCT_SHOPTET_XML_URL%
+    productsXmlFile: %tempDir%/cache/products.xml
+
+
+tracy:
+    keysToHide:
+        - CATALOG_NAME
+        - CATALOG_PRODUCT_SHOPTET_XML_URL
+
+
+application:
+    errorPresenter:
+        4xx: Error:Error4xx
+        5xx: Error:Error5xx
+    mapping: App\Presentation\*\**Presenter
+
+
+latte:
+    strictTypes: yes
+    strictParsing: yes
+    extensions:
+        - App\Presentation\Accessory\LatteExtension
+
+
+di:
+    export:
+        parameters: no
+        tags: no

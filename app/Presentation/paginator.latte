@@ -1,0 +1,32 @@
+<div class="row">
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination pagination-sm justify-content-center">
+            <li n:class="$paginator->isFirst() ? disabled, page-item">
+                <a class="page-link" n:href="default, $slug, 1">First</a>
+            </li>
+            <li n:class="$paginator->isFirst() ? disabled, page-item">
+                <a class="page-link" n:href="default, $slug, $paginator->getPage() - 1">Previous</a>
+            </li>
+            {if !$paginator->isFirst()}
+            <li class="page-item">
+                <a class="page-link" n:href="default, $slug, $paginator->getPage() - 1">{$paginator->getPage() - 1}</a>
+            </li>
+            {/if}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#">{$paginator->getPage()}</a>
+            </li>
+            {if !$paginator->isLast()}
+            <li class="page-item">
+                <a class="page-link" n:href="default, $slug, $paginator->getPage() + 1">{$paginator->getPage() + 1}</a>
+            </li>
+            {/if}
+            <li class="page-item">
+                <a n:class="$paginator->isLast() ? disabled, page-link" n:href="default, $slug, $paginator->getPage() + 1">Next</a>
+            </li>
+            <li class="page-item">
+                <a n:class="$paginator->isLast() ? disabled, page-link" n:href="default, $slug, $paginator->getPageCount()">{$paginator->getPageCount()}</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+

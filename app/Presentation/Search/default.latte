@@ -1,0 +1,46 @@
+{block content}
+
+<div class="row">
+    <h1 class="mt-2 mb-0">Searching &quot;{$query}&quot;</h1>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        {foreach $products as $product}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-img-top text-center">
+                        <img src="{$product['image']}" alt="{$product['name']}" class="img-fluid" loading="lazy">
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="{$product['name']}">{$product['name']|truncate:35}</h5>
+                        <p class="card-text">{$product['description']|stripHtml|truncate:90}</p>
+                    </div>
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><small><strong>EAN:</strong> {$product['ean']}</small></li>
+                        <li class="list-group-item"><small><strong>Manufacturer:</strong> {$product['manufacturer']}</small></li>
+                        <li class="list-group-item"><small><a href="/catalog/category/{$product['categorySlug']}">{$product['category']}</a></small></li>
+                    </ul>
+
+                    <div class="card-footer">
+                        <a href="/catalog/detail/{$product['productSlug']}" class="btn btn-primary btn-sm">Detail</a>
+                        <small class="float-end mt-1 text-secondary">{$product['availability']}</small>
+                    </div>
+                </div>
+            </div>
+        {/foreach}
+    </div>
+</div>
+
+<style>
+    .card-img-top {
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .card-img-top > img.img-fluid {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        background-color: #a6a6a6
+    }
+</style>

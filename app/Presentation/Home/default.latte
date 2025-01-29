@@ -1,0 +1,16 @@
+{* This is the welcome page, you can delete it *}
+
+{block content}
+
+<div class="container pb-5">
+    <h1 class="mb-4">Categories</h1>
+    <div class="row">
+        {foreach $categories as $category}
+            <div class="col-md-6">
+                <a href="/catalog/category/{$category['slug']}" class="d-block py-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                    {$category['category']}
+                </a>
+            </div>
+        {/foreach}
+    </div>
+</div>

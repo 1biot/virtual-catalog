@@ -1,0 +1,4 @@
+config/common.local.neon
+data
+vendor
+.env
