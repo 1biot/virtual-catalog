@@ -3,7 +3,6 @@ spec:
   services:
     - environment_slug: php
       build_command: "composer install --no-dev --optimize-autoloader",
-      run_command: "php -S 0.0.0.0:8080 -t www",
       git:
         branch: main
         repo_clone_url: https://github.com/1biot/virtual-catalog.git
