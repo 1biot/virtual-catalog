@@ -59,11 +59,14 @@ class Bootstrap
                 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
                 $dotenv->safeLoad();
                 $dotenv->required(['CATALOG_PRODUCT_SHOPTET_XML_URL']);
+                $this->configurator->addDynamicParameters([
+                    'env' => $_ENV,
+                ]);
             } catch (Dotenv\Exception\InvalidEncodingException|Dotenv\Exception\InvalidFileException $e) {
             }
-
+        } else {
             $this->configurator->addDynamicParameters([
-                'env' => $_ENV,
+                'env' => getenv(),
             ]);
         }
     }

@@ -3,3 +3,5 @@ data
 vendor
 .idea
 .env
+.DS_Store
+*/**.DS_Store
