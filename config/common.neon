@@ -1,12 +1,10 @@
 parameters:
-    catalogName: %env.CATALOG_NAME%
     productsXmlUrl: %env.CATALOG_PRODUCT_SHOPTET_XML_URL%
     productsXmlFile: %tempDir%/cache/products.xml
 
 
 tracy:
     keysToHide:
-        - CATALOG_NAME
         - CATALOG_PRODUCT_SHOPTET_XML_URL
 
 
