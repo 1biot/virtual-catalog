@@ -1,4 +1,5 @@
 config/common.local.neon
 data
 vendor
+.idea
 .env
