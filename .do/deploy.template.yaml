@@ -6,6 +6,7 @@ spec:
       git:
         branch: main
         repo_clone_url: https://github.com/1biot/virtual-catalog.git
+#        deploy_on_push: true
       name: preved-to-virtual-catalog
       instance_count: 1
       instance_size_slug: basic-xxs
