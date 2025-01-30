@@ -5,7 +5,6 @@ spec:
       git:
         branch: main
         repo_clone_url: https://github.com/1biot/virtual-catalog.git
-        deploy_on_push: true
       name: preved-to-virtual-catalog
       build_command: "composer catalogue:download $CATALOG_PRODUCT_SHOPTET_XML_URL"
       run_command: "heroku-php-apache2 public/"
