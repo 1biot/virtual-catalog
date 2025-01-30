@@ -17,9 +17,9 @@ final class CategoryPresenter extends AppPresenter
     private const PER_PAGE_DEFAULT = 12;
     private ?array $category = null;
 
-    public function __construct(string $productXmlUrl, string $productXmlFile, private readonly string $tempDir)
+    public function __construct(string $productXmlFile, private readonly string $tempDir)
     {
-        parent::__construct($productXmlUrl, $productXmlFile);
+        parent::__construct($productXmlFile);
     }
 
     public function actionDefault(string $slug, int $page): void

@@ -1,9 +1,9 @@
 services:
     - App\Core\RouterFactory::createRouter
-    - App\Presentation\Home\HomePresenter(%productsXmlUrl%, %productsXmlFile%)
-    - App\Presentation\Detail\DetailPresenter(%productsXmlUrl%, %productsXmlFile%)
-    - App\Presentation\Search\SearchPresenter(%productsXmlUrl%, %productsXmlFile%)
-    - App\Presentation\Category\CategoryPresenter(%productsXmlUrl%, %productsXmlFile%, %tempDir%)
+    - App\Presentation\Home\HomePresenter(%productsXmlFile%)
+    - App\Presentation\Detail\DetailPresenter(%productsXmlFile%)
+    - App\Presentation\Search\SearchPresenter(productsXmlFile%)
+    - App\Presentation\Category\CategoryPresenter(%productsXmlFile%, %tempDir%)
 
 search:
     - in: %appDir%

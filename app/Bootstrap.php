@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-use Dotenv;
 use Nette;
 use Nette\Bootstrap\Configurator;
 
@@ -25,7 +24,6 @@ class Bootstrap
     public function bootWebApplication(): Nette\DI\Container
     {
         $this->initializeEnvironment();
-        $this->loadEnvironmentVariables();
         $this->setupContainer();
         return $this->configurator->createContainer();
     }
@@ -50,24 +48,5 @@ class Bootstrap
             $this->configurator->addConfig($configDir . '/common.local.neon');
         }
         $this->configurator->addConfig($configDir . '/services.neon');
-    }
-
-    private function loadEnvironmentVariables(): void
-    {
-        if ($this->configurator->isDebugMode()) {
-            try {
-                $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-                $dotenv->safeLoad();
-                $dotenv->required(['CATALOG_PRODUCT_SHOPTET_XML_URL']);
-                $this->configurator->addDynamicParameters([
-                    'env' => $_ENV,
-                ]);
-            } catch (Dotenv\Exception\InvalidEncodingException|Dotenv\Exception\InvalidFileException $e) {
-            }
-        } else {
-            $this->configurator->addDynamicParameters([
-                'env' => getenv(),
-            ]);
-        }
     }
 }

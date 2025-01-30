@@ -11,7 +11,7 @@ use Nette\Application\UI\Form;
 
 class AppPresenter extends Nette\Application\UI\Presenter
 {
-    public function __construct(private readonly string $productXmlUrl = '', private readonly string $productXmlFile = '')
+    public function __construct(private readonly string $productXmlFile = '')
     {
         parent::__construct();
     }
@@ -19,14 +19,9 @@ class AppPresenter extends Nette\Application\UI\Presenter
     protected function startup()
     {
         parent::startup();
-        // file exists and later, not to old too
-        if (file_exists($this->productXmlFile)) {
-            return;
-        } elseif ($this->productXmlUrl === '') {
+        if (!file_exists($this->productXmlFile)) {
             throw new Nette\Application\BadRequestException('Products file not found', Nette\Http\IResponse::S404_NotFound);
         }
-
-        $this->downloadProducts();
     }
 
     protected function createComponentSearchForm(): Form
@@ -72,34 +67,5 @@ class AppPresenter extends Nette\Application\UI\Presenter
     protected function getProductsQuery(): Interface\Query
     {
         return $this->getProductXmlFile()->query();
-    }
-
-    private function downloadProducts()
-    {
-        $savePath = $this->productXmlFile;
-        $fp = fopen($savePath, 'w+'); // Otevření souboru pro zápis
-        if (!$fp) {
-            die("Nelze otevřít soubor pro zápis.");
-        }
-
-        $ch = curl_init($this->getProductXmlUrl());
-        curl_setopt($ch, CURLOPT_FILE, $fp); // Ukládá přímo do souboru
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Povolit přesměrování
-        curl_setopt($ch, CURLOPT_TIMEOUT, 80); // Timeout pro celé stahování (sekundy)
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10); // Timeout pro spojení
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0'); // Fake User-Agent, pokud server blokuje boti
-
-        curl_exec($ch);
-
-        if (curl_errno($ch)) {
-            curl_close($ch);
-            fclose($fp);
-            throw new Nette\Application\BadRequestException('Products file not found', Nette\Http\IResponse::S404_NotFound);
-        }
-
-
-        $this->flashMessage('Products file downloaded');
-        curl_close($ch);
-        fclose($fp);
     }
 }
