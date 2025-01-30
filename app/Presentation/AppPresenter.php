@@ -24,9 +24,20 @@ class AppPresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    protected function createComponentSearchForm(): Form
+    protected function beforeRender()
     {
-        $form = new Form;
+        parent::beforeRender();
+
+        $timestamp = filemtime($this->productXmlFile); // Get last modification time of the file
+        $datetime = new Nette\Utils\DateTime();
+        $datetime->setTimestamp($timestamp);
+
+        $this->getTemplate()->add('lastUpdate', $datetime->format('Y-m-d H:i:s'));
+    }
+
+    protected function createComponentSearchForm(): Nette\Application\UI\Form
+    {
+        $form = new Nette\Application\UI\Form;
         $form->addText('query')
             ->setRequired('Zadejte hledaný výraz.')
             ->addRule(Form::MIN_LENGTH, 'Hledaný výraz musí mít alespoň %d znaky.', 3)
@@ -40,13 +51,8 @@ class AppPresenter extends Nette\Application\UI\Presenter
 
     public function searchFormSucceeded(Form $form, array $values): void
     {
-        // Přesměrování na stránku výsledků
+        // Redirect to search results page
         $this->redirect('Search:default', ['query' => trim($values['query']), 'page'=> 1]);
-    }
-
-    protected function getProductXmlUrl(): string
-    {
-        return $this->productXmlUrl;
     }
 
     /**

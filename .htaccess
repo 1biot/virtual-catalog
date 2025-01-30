@@ -1,5 +1,4 @@
 RewriteEngine On
-RewriteRule ^$ public/ [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ public/$1 [L]
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|mp4|webm|json|xml|txt|pdf)$ [NC]
+RewriteRule ^(.*)$ /public/index.php [L,QSA]
