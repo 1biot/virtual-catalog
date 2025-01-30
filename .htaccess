@@ -1,7 +1,7 @@
 RewriteEngine On
 
-RewriteCond %{THE_REQUEST} /public([/\s?]) [NC]
-RewriteRule ^public(/.*)?$ /$1 [R=301,L]
+RewriteCond %{REQUEST_URI} /public/([^\s?]*) [NC]
+RewriteRule ^public/(.*)$ /$1 [R=301,L]
 
 RewriteCond %{REQUEST_URI} !^/public/
 RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|mp4|webm|json|xml|txt|pdf)$ [NC]
