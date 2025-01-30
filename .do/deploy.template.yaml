@@ -2,7 +2,7 @@ spec:
   name: preved-to-virtual-catalog
   services:
     - environment_slug: php
-      build_command: "composer install --no-dev --optimize-autoloader"
+      build_command: "composer install --no-dev --optimize-autoloader && composer catalogue:download $CATALOG_PRODUCT_SHOPTET_XML_URL"
       git:
         branch: main
         repo_clone_url: https://github.com/1biot/virtual-catalog.git
@@ -11,4 +11,4 @@ spec:
       instance_size_slug: basic-xxs
       envs:
         - key: CATALOG_PRODUCT_SHOPTET_XML_URL
-          scope: RUN_TIME
+          scope: BUILD_TIME

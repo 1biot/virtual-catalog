@@ -9,7 +9,6 @@ use FQL\Enum;
 use FQL\Exception;
 use FQL\Interface;
 use FQL\Results;
-use FQL\Stream;
 use Nette;
 
 
@@ -17,7 +16,7 @@ final class SearchPresenter extends AppPresenter
 {
     private const PER_PAGE_DEFAULT = 12;
 
-    public function renderDefault(string $query): void
+    public function renderDefault(string $query, int $page): void
     {
         $queryCountWords = count(array_filter(explode(" ", $query)));
         if ($queryCountWords === 1 && strlen($query) < 3) {
@@ -30,14 +29,26 @@ final class SearchPresenter extends AppPresenter
         $resultsQuery = $this->getBaseProductQuery();
         $resultsQuery->fulltext(['ean', 'code', 'name', 'manufacturer', 'description'], $query)->as('_score');
         $resultsQuery->having('_score', Enum\Operator::GREATER_THAN, $queryCountWords < 3 ? 0 : 3)
-            ->orderBy('_score')->desc();
+            ->limit(120);
 
+        $paginator = new Nette\Utils\Paginator;
+        $paginator->setBase(1);
+        $paginator->setPage($page);
+        $paginator->setItemsPerPage(self::PER_PAGE_DEFAULT);
+        $paginator->setItemCount($resultsQuery->execute(Results\InMemory::class)->count());
 
-        $results = $resultsQuery
-            ->execute(Results\InMemory::class);
+        $results = new \ArrayIterator([]);
+        if ($paginator->getItemCount()) {
+            $results = $resultsQuery
+                ->orderBy('_score')->desc()
+                ->page($page, $paginator->getItemsPerPage())
+                ->execute(Results\InMemory::class)
+                ->getIterator();
+        }
 
         $this->getTemplate()->add('query', $query);
-        $this->getTemplate()->add('products', $results->fetchAll());
+        $this->getTemplate()->add('products', $results);
+        $this->getTemplate()->add('paginator', $paginator);
     }
 
     /**

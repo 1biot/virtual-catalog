@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "291c0993951ec24fed60be85d2f4a61c",
+    "content-hash": "c36daa1309389cde3b0de51a3c8c9f06",
     "packages": [
         {
             "name": "1biot/fiquela",
@@ -2055,7 +2055,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">= 8.1"
+        "php": ">= 8.1",
+        "ext-curl": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"

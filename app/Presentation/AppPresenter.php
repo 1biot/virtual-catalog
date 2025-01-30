@@ -46,7 +46,7 @@ class AppPresenter extends Nette\Application\UI\Presenter
     public function searchFormSucceeded(Form $form, array $values): void
     {
         // Přesměrování na stránku výsledků
-        $this->redirect('Search:default', ['query' => trim($values['query'])]);
+        $this->redirect('Search:default', ['query' => trim($values['query']), 'page'=> 1]);
     }
 
     protected function getProductXmlUrl(): string
@@ -85,7 +85,7 @@ class AppPresenter extends Nette\Application\UI\Presenter
         $ch = curl_init($this->getProductXmlUrl());
         curl_setopt($ch, CURLOPT_FILE, $fp); // Ukládá přímo do souboru
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Povolit přesměrování
-        curl_setopt($ch, CURLOPT_TIMEOUT, 60); // Timeout pro celé stahování (sekundy)
+        curl_setopt($ch, CURLOPT_TIMEOUT, 80); // Timeout pro celé stahování (sekundy)
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10); // Timeout pro spojení
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0'); // Fake User-Agent, pokud server blokuje boti
 
