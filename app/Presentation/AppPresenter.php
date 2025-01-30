@@ -39,11 +39,11 @@ class AppPresenter extends Nette\Application\UI\Presenter
     {
         $form = new Nette\Application\UI\Form;
         $form->addText('query')
-            ->setRequired('Zadejte hledaný výraz.')
-            ->addRule(Form::MIN_LENGTH, 'Hledaný výraz musí mít alespoň %d znaky.', 3)
-            ->addRule(Form::PATTERN, 'Hledaný výraz obsahuje nepovolené znaky.', '[a-zA-Z0-9á-žÁ-Ž,\.\-_\s]+');
+            ->setRequired('Type a search query.')
+            ->addRule(Nette\Forms\Form::MinLength, 'Search term must have at least 3 characters', 3)
+            ->addRule(Nette\Forms\Form::Pattern, 'The search term contains illegal characters.', '[a-zA-Z0-9á-žÁ-Ž,\.\-_\s]+');
 
-        $form->addSubmit('submit', 'Hledat');
+        $form->addSubmit('submit', 'Search');
         $form->onSuccess[] = [$this, 'searchFormSucceeded'];
 
         return $form;

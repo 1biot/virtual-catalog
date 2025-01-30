@@ -32,6 +32,18 @@ final class HomePresenter extends AppPresenter
             throw new Nette\Application\BadRequestException('Product not found', Nette\Http\IResponse::S404_NotFound);
         }
 
-        $this->getTemplate()->add('categories', $results->fetchAll());
+        $sortedCategories = [];
+        foreach ($results->fetchAll() as $category) {
+            $parts = explode(' > ', $category['category']);
+            $mainCategory = $parts[0];
+
+            if (!isset($sortedCategories[$mainCategory])) {
+                $sortedCategories[$mainCategory] = [];
+            }
+
+            $sortedCategories[$mainCategory][] = $category;
+        }
+
+        $this->getTemplate()->add('categories', $sortedCategories);
     }
 }
