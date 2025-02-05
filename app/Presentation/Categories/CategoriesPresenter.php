@@ -19,7 +19,7 @@ final class CategoriesPresenter extends AuthPresenter
         $results = $this->products->startQuery()
             ->distinct()
             ->coalesceNotEmpty('CATEGORIES.DEFAULT_CATEGORY', 'CATEGORIES.CATEGORY')->as('category')
-            ->md5('CATEGORIES.DEFAULT_CATEGORY')->as('slug')
+            ->md5('category')->as('slug')
             ->select('VISIBILITY')->as('visibility')
             ->from('SHOP.SHOPITEM')
             ->where('VISIBILITY', Enum\Operator::EQUAL_STRICT, 'visible')
