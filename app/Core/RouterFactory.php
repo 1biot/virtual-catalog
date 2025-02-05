@@ -17,7 +17,10 @@ final class RouterFactory
         $router = new RouteList;
         $router->addRoute('catalog/search/<query>[/page/<page=1>]', 'Search:default');
         $router->addRoute('catalog/detail/<slug>', 'Detail:default');
-        $router->addRoute('catalog/category/<slug>[/page/<page=1>]', 'Category:default');
+        $router->addRoute('catalog/category/<slug>[/page/<page=1>]', 'CategoryDetail:default');
+        $router->addRoute('catalog/categories', 'Categories:default');
+        $router->addRoute('catalog/manufacturer/<slug>[/page/<page=1>]', 'ManufacturerDetail:default');
+        $router->addRoute('catalog/manufacturer', 'Manufacturers:default');
         $router->addRoute('<presenter>/<action>[/<id>]', 'Home:default');
         return $router;
     }

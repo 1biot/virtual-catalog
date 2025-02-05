@@ -2,37 +2,24 @@
 
 namespace App\Presentation;
 
-use FQL\Enum;
-use FQL\Exception;
+use App\Core\Repository\Products;
 use FQL\Interface;
-use FQL\Stream;
 use Nette;
-use Nette\Application\UI\Form;
 
 class AppPresenter extends Nette\Application\UI\Presenter
 {
-    public function __construct(private readonly string $productXmlFile = '')
+    protected const int PER_PAGE_DEFAULT = 12;
+
+    public function __construct(protected readonly Products $products)
     {
         parent::__construct();
     }
 
-    protected function startup()
-    {
-        parent::startup();
-        if (!file_exists($this->productXmlFile)) {
-            throw new Nette\Application\BadRequestException('Products file not found', Nette\Http\IResponse::S404_NotFound);
-        }
-    }
-
+    /** @return void */
     protected function beforeRender()
     {
         parent::beforeRender();
-
-        $timestamp = filemtime($this->productXmlFile); // Get last modification time of the file
-        $datetime = new Nette\Utils\DateTime();
-        $datetime->setTimestamp($timestamp);
-
-        $this->getTemplate()->add('lastUpdate', $datetime->format('Y-m-d H:i:s'));
+        $this->getTemplate()->add('lastUpdate', (new \DateTime())->format('Y-m-d H:i:s'));
     }
 
     protected function createComponentSearchForm(): Nette\Application\UI\Form
@@ -49,29 +36,24 @@ class AppPresenter extends Nette\Application\UI\Presenter
         return $form;
     }
 
-    public function searchFormSucceeded(Form $form, array $values): void
+    public function searchFormSucceeded(Nette\Application\UI\Form $form, array $values): void
     {
         // Redirect to search results page
-        $this->redirect('Search:default', ['query' => trim($values['query']), 'page'=> 1]);
+        $this->redirect('Search:default', ['query' => rawurlencode(trim($values['query'])), 'page'=> 1]);
     }
 
-    /**
-     * @implements Interface\Stream<Stream\Xml>
-     * @return Interface\Stream
-     * @throws Exception\FileNotFoundException
-     * @throws Exception\InvalidFormatException
-     */
-    protected function getProductXmlFile(): Interface\Stream
-    {
-        return Stream\Provider::fromFile($this->productXmlFile, Enum\Format::XML);
-    }
-
-    /**
-     * @throws Exception\InvalidFormatException
-     * @throws Exception\FileNotFoundException
-     */
     protected function getProductsQuery(): Interface\Query
     {
-        return $this->getProductXmlFile()->query();
+        return $this->products->startQuery();
+    }
+
+    protected function createPaginator(int $page, ?int $count = null): Nette\Utils\Paginator
+    {
+        $paginator = new Nette\Utils\Paginator;
+        $paginator->setBase(1);
+        $paginator->setPage($page);
+        $paginator->setItemsPerPage(self::PER_PAGE_DEFAULT);
+        $paginator->setItemCount($count);
+        return $paginator;
     }
 }

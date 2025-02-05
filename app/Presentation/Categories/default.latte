@@ -1,0 +1,22 @@
+{block content}
+
+<div class="container pb-5">
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <h1>Categories</h1>
+        </div>
+        {foreach $categories as $mainCategory => $subCategories}
+        <div class="col-12">
+            <h3 class="mt-4">{$mainCategory}</h3>
+        </div>
+            {foreach $subCategories as $category}
+                <div class="col-md-6">
+                    <a n:href="CategoryDetail:, $category['slug'], 1" class="d-block py-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                        {$category['category']}
+                    </a>
+                </div>
+            {/foreach}
+        {/foreach}
+    </div>
+</div>
+

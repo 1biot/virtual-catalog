@@ -1,21 +1,37 @@
-{* This is the welcome page, you can delete it *}
-
 {block content}
 
-<div class="container pb-5">
+<div class="container pb-5" xmlns:n="http://www.w3.org/1999/xhtml">
     <div class="row">
-        {foreach $categories as $mainCategory => $subCategories}
-        <div class="col-12">
-            <h3 class="mt-4">{$mainCategory}</h3>
+        <div class="col-md-12 mb-3 text-center">
+            <h1>Virtual Product Catalogue</h1>
         </div>
-        {foreach $subCategories as $category}
-        <div class="col-md-6">
-            <a href="/catalog/category/{$category['slug']}" class="d-block py-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
-                {$category['category']}
-            </a>
+        <div n:if="$user->isLoggedIn()" class="col-md-12 text-center">
+            <p>Welcome to our virtual product catalogue. Here you can browse through our products, categories, and manufacturers. Click on the links below to get started.</p>
         </div>
-        {/foreach}
-        {/foreach}
+        <div n:if="$user->isLoggedIn()" class="col-md-6 text-center">
+            <h2><a n:href="Categories:">Categories</a></h2>
+        </div>
+        <div n:if="$user->isLoggedIn()" class="col-md-6 text-center">
+            <h2><a n:href="Manufacturers:">Manufacturers</a></h2>
+        </div>
+        <div n:if="!$user->isLoggedIn()" class="col-md-12">
+            <form n:name=signInForm class="w-25 m-auto">
+                <div class="form-floating mb-3">
+                    <input n:name=username class="form-control" placeholder="Username">
+                    <label>Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input n:name=password class="form-control" placeholder="Password">
+                    <label>Password</label>
+                </div>
+                <button n:name=send class="btn btn-primary w-100 py-2">
+                    Sign in
+                    <i class="fa fa-sign-in fa-fw fa-lg"></i>
+                </button>
+                <div class="form-group text-center">
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

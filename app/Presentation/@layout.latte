@@ -11,18 +11,29 @@
     <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
     <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="/">Převeď.to - Virtual product catalogue</a>
+    <nav class="navbar navbar-expand-lg bg-info">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Virtual Product Catalogue</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div n:if="$user->isLoggedIn()" class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a n:class="$presenter->isLinkCurrent('Categories:*') || $presenter->isLinkCurrent('CategoryDetail:*') ? active, nav-link" n:href="Categories:">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a n:class="$presenter->isLinkCurrent('Manufacturers:*') || $presenter->isLinkCurrent('ManufacturerDetail:*') ? active, nav-link" aria-current="page" n:href="Manufacturers:">Manufacturers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" n:href="Auth:SignOut">Sign out</a>
+                    </li>
+                </ul>
                 <!-- Search Form -->
                 <form n:name=searchForm class="d-flex" role="search">
                     <input n:name=query class="form-control me-2" type="search" id="search-input" placeholder="Search products..." aria-label="Search">
-                    <input n:name=submit class="btn btn-secondary">
+                    <input n:name=submit class="btn btn-outline-light">
                 </form>
             </div>
         </div>

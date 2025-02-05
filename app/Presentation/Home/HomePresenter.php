@@ -5,45 +5,34 @@ declare(strict_types=1);
 namespace App\Presentation\Home;
 
 use App\Presentation\AppPresenter;
-use FQL\Enum;
-use FQL\Exception;
 use Nette;
+use Nette\Application\UI\Form;
 
 final class HomePresenter extends AppPresenter
 {
-    /**
-     * @throws Exception\InvalidFormatException
-     * @throws Exception\FileNotFoundException
-     */
-    public function actionDefault(): void
+    protected function createComponentSignInForm(): Form
     {
-        $results = $this->getProductsQuery()
-            ->distinct()
-            ->coalesceNotEmpty('CATEGORIES.DEFAULT_CATEGORY', 'CATEGORIES.CATEGORY')->as('category')
-            ->md5('CATEGORIES.DEFAULT_CATEGORY')->as('slug')
-            ->select('VISIBILITY')->as('visibility')
-            ->from('SHOP.SHOPITEM')
-            ->where('VISIBILITY', Enum\Operator::EQUAL_STRICT, 'visible')
-            ->having('category', Enum\Operator::NOT_EQUAL, '')
-            ->orderBy('category')->asc()
-            ->execute();
+        $form = new Form;
+        $form->addText('username', 'Username:')
+            ->setRequired('Please enter your username.');
 
-        if (!$results->exists()) {
-            throw new Nette\Application\BadRequestException('Product not found', Nette\Http\IResponse::S404_NotFound);
+        $form->addPassword('password', 'Password:')
+            ->setRequired('Please enter your password.');
+
+        $form->addSubmit('send', 'Sign in');
+
+        $form->onSuccess[] = $this->signInFormSucceeded(...);
+        return $form;
+    }
+
+    private function signInFormSucceeded(Form $form, \stdClass $data): void
+    {
+        try {
+            $this->getUser()->login($data->username, $data->password);
+            $this->redirect('Home:');
+
+        } catch (Nette\Security\AuthenticationException $e) {
+            $form->addError('Incorrect username or password.');
         }
-
-        $sortedCategories = [];
-        foreach ($results->fetchAll() as $category) {
-            $parts = explode(' > ', $category['category']);
-            $mainCategory = $parts[0];
-
-            if (!isset($sortedCategories[$mainCategory])) {
-                $sortedCategories[$mainCategory] = [];
-            }
-
-            $sortedCategories[$mainCategory][] = $category;
-        }
-
-        $this->getTemplate()->add('categories', $sortedCategories);
     }
 }

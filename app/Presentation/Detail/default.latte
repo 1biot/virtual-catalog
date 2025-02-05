@@ -11,9 +11,10 @@
         <ul class="list-group list-group-flush mt-3">
             <li class="list-group-item"><strong>SKU:</strong> {$product['code']}</li>
             <li class="list-group-item"><strong>EAN:</strong> {$product['ean']}</li>
-            <li class="list-group-item"><strong>Brand:</strong> {$product['manufacturer']}</li>
-            <li class="list-group-item"><strong>Category:</strong> <a n:href="Category:, slug: $product['categorySlug'], page: 1">{$product['category']}</a></li>
+            <li class="list-group-item"><strong>Brand:</strong> <a n:href="ManufacturerDetail:, $product['manufacturerSlug'], 1">{$product['manufacturer']}</a></li>
+            <li class="list-group-item"><strong>Category:</strong> <a n:href="CategoryDetail:, slug: $product['categorySlug'], page: 1">{$product['category']}</a></li>
             <li class="list-group-item"><strong>Availability:</strong> <span class="text-secondary">{$product['availability']}</span></li>
+            <li class="list-group-item"><strong>Price:</strong> {$product['purchasePrice']|number: 2, ",", " "} Kč </li>
             <li class="list-group-item"><strong>VAT:</strong> {$product['vat']}</li>
         </ul>
     </div>

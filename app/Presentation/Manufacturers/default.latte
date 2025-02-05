@@ -1,0 +1,22 @@
+{block content}
+
+<div class="container pb-5">
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <h1>Manufacturers</h1>
+        </div>
+        {foreach $manufacturers as $letter => $sortedManufacturers}
+            <div class="col-12">
+                <h3 class="mt-4">{$letter}</h3>
+            </div>
+            {foreach $sortedManufacturers as $sortedManufacturer}
+                <div class="col-md-6">
+                    <a n:href="ManufacturerDetail:, $sortedManufacturer['slug'], 1" class="d-block py-2 link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                        {$sortedManufacturer['manufacturer']}
+                    </a>
+                </div>
+            {/foreach}
+        {/foreach}
+    </div>
+</div>
+
