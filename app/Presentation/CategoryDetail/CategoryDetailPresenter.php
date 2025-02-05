@@ -33,7 +33,7 @@ final class CategoryDetailPresenter extends AuthPresenter
     {
         $this->getTemplate()->add('category', [
             'category' => $this->category['category'],
-            'slug' => $this->category['slug'],
+            'slug' => $this->category['categorySlug'],
         ]);
 
         $resultsQuery = $this->getBaseCategoryQuery($slug);
