@@ -28,7 +28,7 @@ class Products
     public function getBaseProductsQuery(): Interface\Query
     {
         return $this->productsFile->query()
-            ->select('NAME')->as('name')
+            ->coalesce('NAME')->as('name')
             ->md5('name')->as('slug')
             ->coalesce('MANUFACTURER', "")->as('manufacturer')
             ->md5('manufacturer')->as('manufacturerSlug')
@@ -38,7 +38,7 @@ class Products
             ->select('SUPPLIER')->as('supplier')
             ->select('IMAGES.IMAGE')->as('image')
             ->select('INFORMATION_PARAMETERS.INFORMATION_PARAMETER')->as('parameter')
-            ->select('CODE')->as('code')
+            ->coalesce('CODE')->as('code')
             ->coalesce('EAN', "")->as('ean')
             ->select('AVAILABILITY_OUT_OF_STOCK')->as('availability')
             ->concat('VAT', "%")->as('vat')
