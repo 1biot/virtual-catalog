@@ -16,4 +16,4 @@ spec:
           scope: BUILD_TIME
         - key: CATALOG_CREDENTIALS
           scope: BUILD_TIME
-          type: secret
+          type: SECRET
