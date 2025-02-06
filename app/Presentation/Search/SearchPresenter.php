@@ -9,7 +9,7 @@ use FQL\Results;
 
 final class SearchPresenter extends AuthPresenter
 {
-    public function renderDefault(string $query, int $page): void
+    public function renderDefault(string $query, int $page = 1, array $filter = []): void
     {
         $resultsQuery = $this->products->productsMatchAgainstQuery(rawurldecode($query), 1);
         if (!$resultsQuery) {

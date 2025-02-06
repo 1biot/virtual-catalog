@@ -8,7 +8,7 @@ use Nette;
 
 class AppPresenter extends Nette\Application\UI\Presenter
 {
-    protected const int PER_PAGE_DEFAULT = 12;
+    protected const int PER_PAGE_DEFAULT = 48;
 
     public function __construct(protected readonly Products $products)
     {

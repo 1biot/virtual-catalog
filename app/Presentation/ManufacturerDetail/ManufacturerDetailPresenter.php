@@ -15,7 +15,7 @@ final class ManufacturerDetailPresenter extends AuthPresenter
 {
     private ?array $manufacturer = null;
 
-    public function actionDefault(string $slug, int $page): void
+    public function actionDefault(string $slug, int $page = 1, array $filter =[]): void
     {
         $manufacturer = $this->getBaseManufacturerQuery($slug)
             ->limit(1)
@@ -29,7 +29,7 @@ final class ManufacturerDetailPresenter extends AuthPresenter
         $this->manufacturer = $manufacturer;
     }
 
-    public function renderDefault(string $slug, int $page): void
+    public function renderDefault(string $slug, int $page = 1, array $filter =[]): void
     {
         $this->getTemplate()->add('manufacturer', [
             'manufacturer' => $this->manufacturer['manufacturer'],
