@@ -1,6 +1,5 @@
 #!/bin/bash
 
-CATALOG_PRODUCT_SHOPTET_XML_URL=${1:-""}
 if [ -z "$CATALOG_PRODUCT_SHOPTET_XML_URL" ]; then
     echo "E|DOWNLOAD|CATALOG_PRODUCT_SHOPTET_XML_URL is not set"
     exit 1

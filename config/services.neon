@@ -1,6 +1,7 @@
 services:
     - App\Core\RouterFactory::createRouter
     - App\Core\Repository\Products(%productsXmlFile%, %tempDir%)
+    - App\Core\Security\PasswdAuthenticator(%tempDir%/.passwd)
 
 search:
     - in: %appDir%

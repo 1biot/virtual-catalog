@@ -7,10 +7,13 @@ spec:
         branch: main
         deploy_on_push: true
       name: preved-to-virtual-catalog
-      build_command: "composer catalogue:download $CATALOG_PRODUCT_SHOPTET_XML_URL"
+      build_command: "./bin/build.sh"
       run_command: "heroku-php-apache2 public/"
       instance_count: 1
       instance_size_slug: basic-xxs
       envs:
         - key: CATALOG_PRODUCT_SHOPTET_XML_URL
           scope: BUILD_TIME
+        - key: CATALOG_CREDENTIALS
+          scope: BUILD_TIME
+          type: secret

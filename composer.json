@@ -40,6 +40,9 @@
     }
   },
   "scripts": {
+    "catalogue:build": [
+      "./bin/build.sh"
+    ],
     "catalogue:download": [
       "./bin/download.sh"
     ],
