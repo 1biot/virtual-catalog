@@ -12,7 +12,7 @@ fi
 
 mkdir -p "./temp/cache"
 
-curl -L --max-time 120 --connect-timeout 15 \
+curl -L --max-time 120 --connect-timeout 15 -s \
     -A "Mozilla/5.0" \
     -o "./temp/cache/products.xml" \
     "${CATALOG_PRODUCT_SHOPTET_XML_URL}"
