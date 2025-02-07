@@ -106,11 +106,17 @@ final class CategoryDetailPresenter extends AuthPresenter
     {
         $brands = [];
         foreach ($results->fetchAll() as $product) {
-            $brands[$product['manufacturerSlug']] = $product['manufacturer'];
+            if (!isset($brands[$product['manufacturerSlug']])) {
+                $brands[$product['manufacturerSlug']] = ['name' => $product['manufacturer'], 'counter' => 0];
+            }
+            $brands[$product['manufacturerSlug']]['counter']++;
         }
 
         return [
-            'brand' => $brands,
+            'brand' => array_map(
+                fn ($brand) => sprintf('%s (%d)', $brand['name'], $brand['counter']),
+                $brands
+            ),
         ];
     }
 }
