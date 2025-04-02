@@ -1,6 +1,8 @@
 config/common.local.neon
 data
 vendor
+temp
+log
 .idea
 .env
 **.DS_Store

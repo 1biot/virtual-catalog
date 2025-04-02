@@ -1,0 +1,10 @@
+services:
+  app:
+    volumes:
+      - .:/app
+    environment:
+      - APP_ENV=development
+
+  web:
+    volumes:
+      - .:/app
