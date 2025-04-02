@@ -1,5 +1,5 @@
-[phase.install]
+[phases.install]
     aptPkg = ['unzip', 'curl', 'ca-certificates', 'git', 'zip']
 
-[phase.build]
+[phases.build]
     cmds = ['composer install --no-dev --no-suggest --optimize-autoloader', './bin/build.sh']
