@@ -25,6 +25,7 @@ HASHED_PASSWORD=$(php -r "echo password_hash('$PASSWORD', PASSWORD_BCRYPT);")
 echo "$USERNAME:$HASHED_PASSWORD" > "$PASSWD_FILE"
 
 # Set permissions (read only for owner)
-chmod 600 "$PASSWD_FILE"
+chmod 640 "$PASSWD_FILE"
+chown -R www-data:www-data "$PASSWD_FILE"
 
 echo "I|GP|File ${PASSWD_FILE} has been successfully created!"
