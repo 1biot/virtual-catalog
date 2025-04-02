@@ -12,8 +12,6 @@ services:
   web:
     image: nginx:alpine
     container_name: virtual-catalog-web
-    ports:
-      - "8802:80"
     volumes:
       - .:/app
       - ./nginx:/etc/nginx/conf.d
