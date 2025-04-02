@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presentation\Detail;
 
-use app\Presentation\Auth\AuthPresenter;
+use App\Presentation\Auth\AuthPresenter;
 use FQL\Exception;
 use Nette;
 

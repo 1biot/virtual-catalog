@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presentation\Categories;
 
-use app\Presentation\Auth\AuthPresenter;
+use App\Presentation\Auth\AuthPresenter;
 use FQL\Enum;
 use FQL\Exception;
 

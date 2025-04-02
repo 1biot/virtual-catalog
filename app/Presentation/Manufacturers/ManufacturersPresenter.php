@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presentation\Manufacturers;
 
-use app\Presentation\Auth\AuthPresenter;
+use App\Presentation\Auth\AuthPresenter;
 use FQL\Enum;
 use FQL\Results;
 

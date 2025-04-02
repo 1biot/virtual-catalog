@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presentation\Search;
 
-use app\Presentation\Auth\AuthPresenter;
+use App\Presentation\Auth\AuthPresenter;
 use FQL\Results;
 
 final class SearchPresenter extends AuthPresenter
