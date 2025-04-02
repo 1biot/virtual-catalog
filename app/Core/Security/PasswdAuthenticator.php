@@ -33,7 +33,7 @@ readonly class PasswdAuthenticator implements Authenticator
     private function getUserData(string $username): ?array
     {
         if (!file_exists($this->passwdFile) || !is_readable($this->passwdFile)) {
-            throw new AuthenticationException('Soubor s uživateli není dostupný.');
+            throw new AuthenticationException('Soubor s uživateli není dostupný.', self::Failure);
         }
 
         $file = fopen($this->passwdFile, 'r');
